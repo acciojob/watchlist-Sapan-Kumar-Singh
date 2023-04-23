@@ -48,11 +48,12 @@ public class MovieService {
 
 
     public Boolean addMovieDirectorPairs(String movieName, String directorName) {
-        Boolean flag=movieRepository.addMovieDirectorPairss(movieName,directorName);
+        Boolean flag;
+        flag=movieRepository.addMovieDirectorPairss(movieName,directorName);
         if(flag==false){
             throw new DirectorMoviePairNotAdded(movieName,directorName);
         }
-        return true;
+        return flag;
     }
 
     public List<String> getMovieByDirectorNames(String directorName) throws MovieListNotFound {

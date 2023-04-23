@@ -14,28 +14,16 @@ public class MovieRepository {
     HashMap<String,Director>directorData=new HashMap<>();
     HashMap<String,List<String>>movieDirectorPairData=new HashMap<>();
 
-    public Optional<Movie> getByMovieNamess(String movieName) {
-        if(movieData.containsKey(movieName)){
-            return Optional.of(movieData.get(movieName));
-        }
-        return Optional.empty();
-    }
+
 
     public Boolean addMoviess(Movie movie) {
         movieData.put(movie.getName(),movie);
         return true;
     }
 
-    public boolean addDirectorss(Director director) {
+    public Boolean addDirectorss(Director director) {
         directorData.put(director.getName(), director);
         return true;
-    }
-
-    public Optional<Director> getByDirectorNamess(String directorName) {
-        if(directorData.containsKey(directorName)==false){
-            return Optional.empty();
-        }
-        return Optional.of(directorData.get(directorName));
     }
 
     public boolean addMovieDirectorPairss(String movieName, String directorName) {
@@ -51,6 +39,23 @@ public class MovieRepository {
         }
         return true;
     }
+
+    public Optional<Movie> getByMovieNamess(String movieName) {
+        if(movieData.containsKey(movieName)){
+            return Optional.of(movieData.get(movieName));
+        }
+        return Optional.empty();
+    }
+
+
+    public Optional<Director> getByDirectorNamess(String directorName) {
+        if(directorData.containsKey(directorName)){
+            return Optional.of(directorData.get(directorName));
+        }
+        return Optional.empty();
+    }
+
+
 
     public Optional<List<String>> getMovieByDirectorNamess(String directorName) {
 

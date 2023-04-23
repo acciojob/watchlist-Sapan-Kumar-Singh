@@ -16,7 +16,7 @@ public class MovieController {
     @PostMapping("POST/movies/add-movie")
      public ResponseEntity addMovie(@RequestBody Movie movie){
          try {
-             Boolean added=movieService.addMovies(movie);
+              movieService.addMovies(movie);
              return new ResponseEntity("success", HttpStatus.CREATED);
          }
          catch (MovieAlreadyExistsException ex){
@@ -29,8 +29,8 @@ public class MovieController {
      @PostMapping("POST/movies/add-director")
     public ResponseEntity addDirector(@RequestBody Director director){
         try {
-            boolean add=movieService.addDirectors(director);
-            return new ResponseEntity("sucess",HttpStatus.CREATED);
+            movieService.addDirectors(director);
+            return new ResponseEntity("success",HttpStatus.CREATED);
         }
         catch (DirectorAlreadyexistsexception ex){
             return new ResponseEntity("Director already exists",HttpStatus.BAD_REQUEST);
@@ -44,7 +44,7 @@ public class MovieController {
      public ResponseEntity addMovieDirectorPair(@RequestParam String movieName ,@RequestParam String directorName){
         try {
             movieService.addMovieDirectorPairs(movieName,directorName);
-            return new ResponseEntity("sucess",HttpStatus.ACCEPTED);
+            return new ResponseEntity("success",HttpStatus.ACCEPTED);
         }
         catch (DirectorMoviePairNotAdded ex){
             return new ResponseEntity("Director-Movie pair Not added",HttpStatus.INSUFFICIENT_STORAGE);

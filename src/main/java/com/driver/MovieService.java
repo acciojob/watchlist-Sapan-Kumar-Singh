@@ -79,7 +79,7 @@ public class MovieService {
          return deleteOpt.get();
     }
 
-    public boolean deleteAllDirectorss() {
+    public boolean deleteAllDirectorss() throws DirectorNotExists{
         Optional<Boolean>deleteOpt=movieRepository.deleteAllDirectorsss();
         if(deleteOpt.isEmpty()){
             throw new DirectorNotExists("null");

@@ -85,9 +85,8 @@ public class MovieRepository {
     }
 
     public Optional<Boolean> deleteAllDirectorsss() {
-          if(directorData.size()==0){
-              return Optional.empty();
-          }
+        if(directorData.size()==0)
+            return Optional.empty();
           for(String directorName : directorData.keySet()){
               directorData.remove(directorName);
               List<String>movies=movieDirectorPairData.get(directorName);

@@ -1,5 +1,6 @@
 package com.driver;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,8 @@ import java.util.List;
 
 @RestController
 public class MovieController {
-    MovieService movieService=new MovieService();
+    @Autowired
+    MovieService movieService;
 
     // 1. add movie
     @PostMapping("POST/movies/add-movie")

@@ -1,12 +1,14 @@
 package com.driver;
 
 import org.springframework.expression.spel.ast.Literal;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class MovieRepository {
     HashMap<String,Movie>movieData=new HashMap<>();
     HashMap<String,Director>directorData=new HashMap<>();

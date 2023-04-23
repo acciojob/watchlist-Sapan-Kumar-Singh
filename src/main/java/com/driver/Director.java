@@ -1,11 +1,8 @@
 package com.driver;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-
-
 public class Director {
     private String name;
-    private int  numberOfMovies;
+    private int numberOfMovies;
     private double imdbRating;
 
     public Director() {
@@ -13,7 +10,7 @@ public class Director {
 
     public Director(String name, int numberOfMovies, double imdbRating) {
         this.name = name;
-        this.numberOfMovies =numberOfMovies;
+        this.numberOfMovies = numberOfMovies;
         this.imdbRating = imdbRating;
     }
 

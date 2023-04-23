@@ -1,49 +1,86 @@
 package com.driver;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.Optional;
 
-@Service
 public class MovieService {
+    MovieRepository movieRepository=new MovieRepository();
 
-    @Autowired
-    MovieRepository movieRepository;
 
-    public String addMovie(Movie movie) {
-        return movieRepository.addMovie(movie);
+
+    public Boolean addMovies(Movie movie) throws MovieAlreadyExistsException {
+        Optional<Movie>movieOpt=movieRepository.getByMovieNamess(movie.getName());
+        if(movieOpt.isPresent()){
+            throw new MovieAlreadyExistsException(movie.getName());
+        }
+        return movieRepository.addMoviess(movie);
     }
 
-    public String addDirector(Director director) {
-        return movieRepository.addDirector(director);
+    public boolean addDirectors(Director director) throws DirectorAlreadyexistsexception {
+        Optional<Director>directorOpt=movieRepository.getByDirectorNamess(director.getName());
+        if(directorOpt.isPresent()){
+            throw new DirectorAlreadyexistsexception(director.getName());
+        }
+       return movieRepository.addDirectorss(director);
     }
 
-    public String addMovieDirectorPair(String movie, String director) {
-        return movieRepository.addMovieDirectorPair(movie, director);
+    public Movie getMovieByNames(String movieName) throws MovieNotExists {
+        Optional<Movie>movieOpt=movieRepository.getByMovieNamess(movieName);
+        if(movieOpt.isEmpty()){
+            throw  new MovieNotExists(movieName);
+        }
+        return movieOpt.get();
     }
 
-    public Movie getMovieByName(String name) {
-        return movieRepository.getMovieByName(name);
+    public Director getDirectorByNames(String directorName) throws DirectorNotExists{
+        Optional<Director> directorOpt=movieRepository.getByDirectorNamess(directorName);
+        if(directorOpt.isEmpty()){
+            throw new DirectorNotExists(directorName);
+        }
+        return directorOpt.get();
     }
 
-    public Director getDirectorByName(String name) {
-        return movieRepository.getDirectorByName(name);
+
+
+    public Boolean addMovieDirectorPairs(String movieName, String directorName) {
+        Boolean flag=movieRepository.addMovieDirectorPairss(movieName,directorName);
+        if(flag==false){
+            throw new DirectorMoviePairNotAdded(movieName,directorName);
+        }
+        return true;
     }
 
-    public List<String> getMoviesByDirectorName(String director) {
-        return movieRepository.getMoviesByDirectorName(director);
+    public List<String> getMovieByDirectorNames(String directorName) throws MovieListNotFound {
+        Optional<List<String>>movieNameOpt=movieRepository.getMovieByDirectorNamess(directorName);
+        if(movieNameOpt.isEmpty()){
+            throw new MovieListNotFound(directorName);
+        }
+        return movieNameOpt.get();
     }
 
-    public List<String> findAllMovies() {
-        return movieRepository.findAllMovies();
+    public List<String> findAllMovie() throws MovieListNotFound {
+        Optional<List<String>>movieListOpt=movieRepository.findAllMoviess();
+        if(movieListOpt.isEmpty()){
+            throw new MovieListNotFound("null");
+        }
+        return movieListOpt.get();
     }
 
-    public void deleteDirectorByName(String name) {
-        movieRepository.deleteDirectorByName(name);
+    public boolean deleteDirectorByNames(String directorName) throws DirectorNotExists{
+        Optional<Boolean>deleteOpt=movieRepository.deleteDirectorByNamess(directorName);
+         if(deleteOpt.isEmpty()){
+             throw new DirectorNotExists(directorName);
+         }
+         return deleteOpt.get();
     }
 
-    public void deleteAllDirectors() {
-        movieRepository.deleteAllDirectors();
+    public boolean deleteAllDirectorss() {
+        Optional<Boolean>deleteOpt=movieRepository.deleteAllDirectorsss();
+        if(deleteOpt.isEmpty()){
+            throw new DirectorNotExists("null");
+        }
+        return deleteOpt.get();
     }
+
+
 }

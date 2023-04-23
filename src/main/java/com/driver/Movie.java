@@ -1,17 +1,11 @@
 package com.driver;
 
-
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-
-
-
 public class Movie {
     private String name;
     private int durationInMinutes;
-    private double imdbRating;
+    private double  imdbRating;
 
     public Movie() {
-
     }
 
     public Movie(String name, int durationInMinutes, double imdbRating) {

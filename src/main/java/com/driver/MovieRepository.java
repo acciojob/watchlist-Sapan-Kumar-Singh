@@ -16,17 +16,16 @@ public class MovieRepository {
 
 
 
-    public Boolean addMoviess(Movie movie) {
+    public void saveMovie(Movie movie) {
         movieData.put(movie.getName(),movie);
-        return true;
     }
 
-    public Boolean addDirectorss(Director director) {
+    public void saveDirector(Director director) {
         directorData.put(director.getName(), director);
-        return true;
+
     }
 
-    public boolean addMovieDirectorPairss(String movieName, String directorName) {
+    public void saveMovieDirectorPair(String movieName, String directorName) {
         if(movieDirectorPairData.containsKey(directorName)){
             List<String>temp=movieDirectorPairData.get(directorName);
             temp.add(movieName);
@@ -37,61 +36,44 @@ public class MovieRepository {
             newList.add(movieName);
             movieDirectorPairData.put(directorName,newList);
         }
-        return true;
+
     }
 
-    public Optional<Movie> getByMovieNamess(String movieName) {
-        if(movieData.containsKey(movieName)){
-            return Optional.of(movieData.get(movieName));
-        }
-        return Optional.empty();
+    public Movie getByMovieName(String movieName) {
+            return movieData.get(movieName);
     }
 
 
-    public Optional<Director> getByDirectorNamess(String directorName) {
-        if(directorData.containsKey(directorName)){
-            return Optional.of(directorData.get(directorName));
-        }
-        return Optional.empty();
+    public Director getByDirectorName(String directorName) {
+            return directorData.get(directorName);
+
     }
 
 
-
-    public Optional<List<String>> getMovieByDirectorNamess(String directorName) {
-
-        if(movieDirectorPairData.containsKey(directorName)){
-            return Optional.of(movieDirectorPairData.get(directorName));
-        }
-        return Optional.empty();
+    public List<String>getMovieByDirectorName(String directorName) {
+            return movieDirectorPairData.get(directorName);
     }
 
-    public Optional<List<String>> findAllMoviess() {
+    public List<String> findAllMovie() {
         List<String>res=new ArrayList<>();
         for(String key : movieData.keySet()){
             res.add(key);
         }
-        return Optional.of(res);
+        return res;
     }
 
-    public Optional<Boolean> deleteDirectorByNamess(String directorName) {
+    public void deleteDirectorByName(String directorName) {
         if(directorData.containsKey(directorName)){
             directorData.remove(directorName);
-            for(String dirName : movieDirectorPairData.keySet()){
-                List<String>movielist=movieDirectorPairData.get(dirName);
-                for( String movie : movielist){
-                    movieData.remove(movie);
-                }
-                movieDirectorPairData.remove(dirName);
-            }
-
-            Optional.of(true);
+           List<String>movie=movieDirectorPairData.get(directorName);
+           for(String movieName : movie){
+               movieData.remove(movieName);
+           }
+          movieDirectorPairData.remove(directorName);
         }
-         return Optional.empty();
     }
 
-    public Optional<Boolean> deleteAllDirectorsss() {
-        if(directorData.size()==0)
-            return Optional.empty();
+    public void deleteAllDirector() {
           for(String directorName : directorData.keySet()){
               directorData.remove(directorName);
               List<String>movies=movieDirectorPairData.get(directorName);
@@ -100,7 +82,7 @@ public class MovieRepository {
               }
               movieDirectorPairData.remove(directorName);
           }
-          return  Optional.of(true);
+
     }
 
 
